@@ -5,7 +5,9 @@
 
 # Example:
 #
-# set :output, "/path/to/my/cron_log.log"
+set :output, "log/cron_log.log"
+ENV.each { |key, val| env(key, val) }
+
 #
 # every 2.hours do
 #   command "/usr/bin/some_great_command"
@@ -18,6 +20,10 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every '16 12 * * *' do
+every 2.minutes do
+  command "cd /app && ruby app.rb"
+end
+
+every 1.day, at: '7:00 am' do
   command "cd /app && ruby app.rb"
 end

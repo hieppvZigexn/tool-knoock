@@ -221,9 +221,20 @@ class GetLogBugService
       message.include?('gems/activerecord-7.0.4/lib/active_record/relation.rb:962') || message.include?('gems/activerecord-7.0.4/lib/active_record/relation.rb:928') || message.include?('gems/activerecord-7.0.4/lib/active_record/relation.rb:914') ||
       message.include?('gems/activerecord-7.0.4/lib/active_record/relation.rb:908') || message.include?('gems/activerecord-7.0.4/lib/active_record/relation.rb:695') || message.include?('gems/activerecord-7.0.4/lib/active_record/relation.rb:250') ||
       message.include?('gems/activerecord-7.0.4/lib/active_record/relation/delegation.rb:88') || message.include?('gems/activesupport-7.0.4/lib/active_support/core_ext/enumerable.rb:106') || message.include?('gems/activerecord-7.0.4/lib/active_record/connection_adapters/abstract/transaction.rb:319') ||
-      message.include?('gems/activerecord-7.0.4/lib/active_record/connection_adapters/abstract/transaction.rb:317') || message.include?('gems/activerecord-7.0.4/lib/active_record/connection_adapters/abstract/database_statements.rb:316') || message.include?('gems/activerecord-7.0.4/lib/active_record/transactions.rb:209') || message.include?('gems/rake-13.0.6/lib/rake/task.rb:281') || message.include?('gems/rake-13.0.6/lib/rake/task.rb:219') ||
-      message.include?('gems/rake-13.0.6/lib/rake/task.rb:199') || message.include?('gems/rake-13.0.6/lib/rake/task.rb:188') || message.include?('gems/activerecord-7.0.4/lib/active_record/connection_adapters/abstract_adapter.rb:756') || message.include?('""')
+      message.include?('gems/activerecord-7.0.4/lib/active_record/connection_adapters/abstract/transaction.rb:317') || message.include?('gems/activerecord-7.0.4/lib/active_record/connection_adapters/abstract/database_statements.rb:316') || message.include?('gems/activerecord-7.0.4/lib/active_record/transactions.rb:209') ||
+      message.include?('gems/rake-13.0.6/lib/rake/task.rb:281') || message.include?('gems/rake-13.0.6/lib/rake/task.rb:219') ||
+      message.include?('gems/rake-13.0.6/lib/rake/task.rb:199') || message.include?('gems/rake-13.0.6/lib/rake/task.rb:188') || message.include?('gems/activerecord-7.0.4/lib/active_record/connection_adapters/abstract_adapter.rb:756') || message.include?('""') ||
+      message.include?('Start GoogleIndexNotifyContentUpdateService') || message.include?('End GoogleIndexNotifyContentUpdateService') || message.include?('GoogleIndexNotifyContentUpdateService::IndexingApiRequestError')
       nil
+    elsif message.include?('/rake-13.0.6/lib/rake/application.rb:160') || message.include?('/rake-13.0.6/lib/rake/application.rb:116') || message.include?('/rake-13.0.6/lib/rake/application.rb:125') || message.include?('rake-13.0.6/lib/rake/application.rb:110') ||
+      message.include?('railties-7.0.4/lib/rails/commands/rake/rake_command.rb:24') || message.include?('railties-7.0.4/lib/rails/commands/rake/rake_command.rb:24') || message.include?('rake-13.0.6/lib/rake/application.rb:186') ||
+      message.include?('rake-13.0.6/lib/rake/rake_module.rb:59') || message.include?('ems/railties-7.0.4/lib/rails/commands/rake/rake_command.rb:18') || message.include?('gems/railties-7.0.4/lib/rails/command.rb:51') ||
+      message.include?('app/vendor/bundle/ruby/3.1.0/gems/bootsnap-1.15.0/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:32')
+      '"    \"message\": \"Failed to parse batch request, error:  0 items. Received batch body: (49) bytes redacted\","'
+    elsif message.include?('Google::Protobuf::Any: type_url: "type.googleapis.com/google.cloud.audit.AuditLog')
+      'Google::Protobuf::Any: type_url: "type.googleapis.com/google.cloud.audit.AuditLog'
+    elsif message.include?('Out of sort memory, consider increasing server sort buffer size')
+      'Mysql2::Error: Out of sort memory, consider increasing server sort buffer size'
     else
       message
     end
@@ -250,7 +261,7 @@ class GetLogBugService
   end
 
   def date_of_week
-    today = Date.today
+    today = Date.today - 1.days
     {
       start_of_week: today.beginning_of_week(:monday),
       end_of_week: today.end_of_week(:monday)
@@ -258,7 +269,7 @@ class GetLogBugService
   end
 
   def sheet_name
-    today = Date.today
+    today = Date.today - 1.days
     start_of_week = date_of_week[:start_of_week]
     end_of_week = date_of_week[:end_of_week]
     "#{start_of_week.strftime('%d')}-#{end_of_week.strftime('%d')}/#{start_of_week.strftime('%m')}/#{start_of_week.strftime('%Y')}"
