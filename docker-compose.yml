@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh ./entrypoint.sh
+    volumes:
+      - .:/app
+      - ./shared_folder:/app
+    restart: always
+networks:
+  my_network:
